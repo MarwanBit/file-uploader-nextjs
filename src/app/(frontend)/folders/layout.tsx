@@ -10,15 +10,20 @@ export const metadata: Metadata = {
   description: "File Uploader, share and upload files and folders with friends!",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ folderId?: string[] }>;
 }>) {
+  const { folderId } = await params;
+  const folderIdValue = folderId ? folderId[0] : null;
+  
   return (
     <>
         <SidebarProvider>        
-            <AppSidebar />
+            <AppSidebar folderId={folderIdValue} shareToken={null}/>
             <SidebarTrigger />
             {children}
             <Toaster richColors position="top-right"/>

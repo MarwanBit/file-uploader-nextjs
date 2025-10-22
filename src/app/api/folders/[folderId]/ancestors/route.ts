@@ -11,8 +11,16 @@ export async function GET(
     try {
         const folderId = (await params).folderId;
         const { userId } = await auth();
+        
+        if (!userId) {
+            return NextResponse.json(
+                { error: 'Unauthorized' },
+                { status: 401 }
+            );
+        }
+        
         const client = await clerkClient();
-        const user = await client.users.getUser(userId as string);
+        const user = await client.users.getUser(userId);
 
         const ancestors = await FolderService.getAncestors(folderId, user);
 

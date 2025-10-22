@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { FolderService } from "@/services/folder-service";
 import { FileService } from "@/services/file-service";
+import { type File } from "@/types/types";
 
 // REFACTORED
 
@@ -11,7 +12,7 @@ export async function GET(
     try {
         const { fileId, token } = await params;
         const rootFolder = await FolderService.getFolderByShareToken(token);
-        const file = await FileService.getFile(fileId);
+        const file: File | null = await FileService.getFile(fileId);
 
         if (!rootFolder) { 
             return NextResponse.json(
@@ -34,14 +35,14 @@ export async function GET(
             );
         }
 
-        const { url, expires_at } = await FileService.getFileFromShareToken(rootFolder, file);
+        const result = await FileService.getFileFromShareToken(rootFolder, file);
 
-        if (url && expires_at) {
+        if (result && result.url && result.expires_at) {
             return NextResponse.json({
                 message: "File access granted",
-                url: url,
+                url: result.url,
                 file_name: file.file_name,
-                expires_at: expires_at,
+                expires_at: result.expires_at,
             });
         } else {
             return NextResponse.json(

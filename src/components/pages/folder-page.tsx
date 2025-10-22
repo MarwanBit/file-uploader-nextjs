@@ -8,18 +8,11 @@ import DirectoryBreadCrumb from "@/components/features/directory-breadcrumb/dire
 import FolderTable from "@/components/features/folder-table/folder-table";
 
 import { SignOutButton, UserButton, SignedIn } from "@clerk/nextjs";
-import { type Folder } from '@/types/types';
+import { type Folder, type File } from '@/types/types';
+import { ApiError } from "@/lib/api-client";
 
 import { useEffect } from "react";
 import { FolderApiService } from "@/api-services/folder-api.service";
-
-export type File = {
-    name: string;
-    size: number;
-    created_at: Date;
-    type: string;
-    id?: string;
-}
 
 interface FolderPageProps {
     folderId?: string | null;
@@ -37,9 +30,11 @@ export default function FolderPage({ folderId = null }: FolderPageProps) {
     async function fetchFolderContents() {
         try {
             const data = await FolderApiService.getFolderContents(folderId);
-            setSubFolders(data.subfolders);
-            setFiles(data.files as File[]);
-            console.log(data);
+            if (!(data instanceof ApiError)) {
+                setSubFolders(data.subfolders);
+                setFiles(data.files as File[]);
+                console.log(data);
+            }
         } catch(err) {
             console.error("error message", err);
         }
@@ -84,13 +79,15 @@ export default function FolderPage({ folderId = null }: FolderPageProps) {
 
         <FolderTable
             files={files}
+            selectedFile={selectedFile}
             folders={subFolders}
             handleRowClick={handleRowClick}/>
 
         <FileSidebar
             file={selectedFile}
             isOpen={isSidebarOpen}
-            onClose={handleCloseSidebar}/>
+            onClose={handleCloseSidebar}
+            readOnly={false}/>
     </div>
   );
 }

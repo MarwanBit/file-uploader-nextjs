@@ -9,6 +9,14 @@ export async function POST(
         try {
             const { folderId } = await params;
             const { userId } = await auth();
+            
+            if (!userId) {
+                return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+                    status: 401,
+                    headers: {"Content-Type": "application/json"},
+                });
+            }
+            
             const client = await clerkClient();
             const user = await client.users.getUser(userId);
 

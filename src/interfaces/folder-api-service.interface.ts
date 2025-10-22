@@ -10,6 +10,6 @@ export interface IFolderApiService {
     createFolder(folderName: string, folderId: string | null): Promise<Folder | ApiError>;
     shareFolder(folderId: string | null, hours: number): Promise<Folder | ApiError>;
     getAncestorsSecurely(root_folder: Folder, current_folder: Folder, folderMap: Record<string, Folder>):  Promise<{ id: string, name: string }[]>;
-    getAncestors(folderId: string): Promise<Folder | ApiError>;
+    getAncestors(folderId: string): Promise<{ message: string, ancestors: { id: string, name: string }[] } | ApiError>;
     constructFolderMap(root_folder: Folder): Promise<Record<string, Folder>>;
 }

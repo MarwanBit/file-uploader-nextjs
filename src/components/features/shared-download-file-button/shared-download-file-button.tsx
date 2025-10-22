@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { IconDownload } from "@tabler/icons-react";
 import { useFolder } from "@/hooks/use-folder";
 import { type File } from '@/types/types';
+import { ApiError } from "@/lib/api-client";
 
 import { FileApiService } from "@/api-services/file-api.service";
 
@@ -15,7 +16,9 @@ export default function SharedDownloadFileButton({ file }: { file: File | null }
     const SharedDownloadFileController = async () => {
         try {
             const data = await FileApiService.downloadFileFromShareToken(file?.id, shareToken);
-            window.open(data.url, "_blank");
+            if (!(data instanceof ApiError)) {
+                window.open(data.url, "_blank");
+            }
         } catch (error) {
             console.error(error);
             toast.error("Something went wrong when downloading! Try again!");

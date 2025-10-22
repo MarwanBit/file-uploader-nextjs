@@ -3,6 +3,7 @@ import ConfigSingleton from '@/lib/config';
 import { DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
 import s3Client from '@/lib/s3-client';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { type File, type Folder } from '@/types/types';
 
 export class FileService {
     private static config = ConfigSingleton.getInstance().config;
@@ -124,7 +125,7 @@ export class FileService {
         }
     }
     
-    static async getFile(fileId: string) : Promise<File> {
+    static async getFile(fileId: string) : Promise<File | null> {
         try {
             const file = await prisma.file.findUnique({
                 where: {
@@ -182,7 +183,7 @@ export class FileService {
     static async getFileFromShareToken(root_folder: Folder, file: File) : Promise<{ 
         url: string,
         expires_at: Date,
-        }> {
+        } | null> {
         try {
             if (await FileService.fileInRootFolder(root_folder.id, file.id)) {
                 const expiresInSeconds = root_folder.expires_at
@@ -196,6 +197,7 @@ export class FileService {
                     expires_at: root_folder.expires_at as Date,
                 };
             }
+            return null;
         } catch (error) {
            console.error("Error getting file from share token: ", error);
            throw new Error(`Failed to get file from share token: ${error instanceof Error ? error.message : 'Unknown error'}`); 

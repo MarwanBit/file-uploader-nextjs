@@ -9,7 +9,7 @@ export class FileApiService {
         return await this.apiClient.delete(endpoint);
     }
 
-    static async downloadFile(fileId: string | null): Promise<File | ApiError> {
+    static async downloadFile(fileId: string | null): Promise<{ message: string, url: string } | ApiError> {
         const endpoint = `/files/${fileId}`;
         return await this.apiClient.get(endpoint);
     }
@@ -19,7 +19,7 @@ export class FileApiService {
         return await this.apiClient.postFormData(endpoint, formData);
     }
 
-    static async shareFile(fileId: string | null, hours: number): Promise<File | ApiError> {
+    static async shareFile(fileId: string | null, hours: number): Promise<{ url: string, expires_at: Date, message: string } | ApiError> {
         const endpoint = `/files/${fileId}/share`;
         const data = {
             hours: hours,
@@ -27,7 +27,7 @@ export class FileApiService {
         return await this.apiClient.post(endpoint, data);
     }
 
-    static async downloadFileFromShareToken(fileId: string, shareToken: number): Promise<File | ApiError> {
+    static async downloadFileFromShareToken(fileId: string | undefined, shareToken: string | null): Promise<{ message: string, url: string, file_name: string, expires_at: Date } | ApiError> {
         const endpoint = `/shared/file/${fileId}/${shareToken}`;
         return await this.apiClient.get(endpoint);
     }

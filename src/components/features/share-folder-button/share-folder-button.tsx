@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useParams } from "next/navigation";
+import { ApiError } from "@/lib/api-client";
 
 import {
     AlertDialog, AlertDialogAction, 
@@ -37,7 +38,9 @@ export default function ShareFolderButton({ readOnly }: { readOnly: boolean }) {
 
         try {
             const data = await FolderApiService.shareFolder(folderId, parseInt(hours));
-            setLink(data.url);
+            if (!(data instanceof ApiError)) {
+                setLink(data.url);
+            }
         } catch (error) {
             console.error(error);
         }

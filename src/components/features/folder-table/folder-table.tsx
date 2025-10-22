@@ -8,21 +8,13 @@ import {
     TableRow,
   } from "@/components/ui/table";
 
-type File = {
-    name: string;
-    size: number;
-    created_at: Date;
-    type: string;
-    id?: string;
-}
-
-import { type Folder } from "@/types/types";
+import { type Folder, type File } from "@/types/types";
 import { useRouter } from "next/navigation";
 
 // REFACTORED
 
 export default function FolderTable({ files, selectedFile, handleRowClick, folders } : {
-    files: File[],
+    files: File[] | null,
     selectedFile: File | null,
     handleRowClick: (file: File) => void
     folders: Folder[] | null | undefined;

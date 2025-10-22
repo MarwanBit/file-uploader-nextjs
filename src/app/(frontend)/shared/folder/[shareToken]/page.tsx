@@ -8,14 +8,7 @@ import { IconLogout } from "@tabler/icons-react";
 import { useState } from "react";
 import { useFolder } from "@/hooks/use-folder";
 import SharedFolderTable from "@/components/features/shared-folder-table/shared-folder-table";
-
-export type File = {
-    name: string;
-    size: number;
-    created_at: Date;
-    type: string;
-    id?: string;
-}
+import { File } from "@/types/types";
 
 export default function SharedFolderPage() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);

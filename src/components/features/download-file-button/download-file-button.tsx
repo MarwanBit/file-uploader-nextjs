@@ -2,14 +2,18 @@ import { toast } from "sonner";
 import { IconDownload } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { FileApiService } from "@/api-services/file-api.service";
+import { type File } from "@/types/types";
+import { ApiError } from "@/lib/api-client";
 
 // REFACTORED
 
 export default function DownloadFileButton({ file, readOnly }: { file: File | null, readOnly: boolean }) {
     const downloadFileController = async () => {
         try {
-            const data = await FileApiService.downloadFile(file?.id);
-            window.open(data.url, "_blank");
+            const data = await FileApiService.downloadFile(file?.id ?? null);
+            if (!(data instanceof ApiError)) {
+                window.open(data.url, "_blank");
+            }
         } catch (error) {
             console.error(error);
             toast.error("Something went wrong when downloading! Try again!");

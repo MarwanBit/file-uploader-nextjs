@@ -17,14 +17,13 @@ export default defineConfig({
         ],
         // Pass with no tests
         passWithNoTests: true,
-    },
-    //Coverge configuration
-    coverage: {
-        provider: 'v8', // or 'istanbul'
-        reporter: ['text', 'json', 'html', 'lcov'],
-        reportsDirectory: './coverage',
-        include: ['src/**/*.{js,ts,jsx,tsx}'],
-        exclude: [
+        //Coverage configuration
+        coverage: {
+            provider: 'v8', // or 'istanbul'
+            reporter: ['text', 'json', 'html', 'lcov'],
+            reportsDirectory: './coverage',
+            include: ['src/**/*.{js,ts,jsx,tsx}'],
+            exclude: [
             // Test files
             'src/**/*.test.{js,ts,jsx,tsx}',
             'src/**/*.spec.{js,ts,jsx,tsx}',
@@ -74,12 +73,13 @@ export default defineConfig({
             '**/.vscode/**',
             '**/.idea/**'
         ],
-        thresholds: {
-            global: {
-                branches: 80,
-                functions: 80,
-                lines: 80,
-                statements: 80
+            thresholds: {
+                global: {
+                    branches: 80,
+                    functions: 80,
+                    lines: 80,
+                    statements: 80
+                }
             }
         }
     },

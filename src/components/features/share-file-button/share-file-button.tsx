@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { type File } from "@/types/types";
+import { ApiError } from "@/lib/api-client";
 
 import {
     AlertDialog, AlertDialogAction, 
@@ -42,8 +43,10 @@ export default function ShareFileButton({ file, readOnly } : {
         }
 
         try {
-            const data = await FileApiService.shareFile(file?.id, parseInt(hours));
-            setLink(data.url);
+            const data = await FileApiService.shareFile(file?.id ?? null, parseInt(hours));
+            if (!(data instanceof ApiError)) {
+                setLink(data.url);
+            }
         } catch (error) {
             console.error(error);
         }

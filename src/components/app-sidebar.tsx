@@ -17,6 +17,7 @@ import NewFolderButton from "./features/new-folder-button/new-folder-button";
 import ShareFolderButton from "./features/share-folder-button/share-folder-button";
 import DeleteFolderButton from "./features/delete-folder-button/delete-folder-button";
 import { FolderApiService } from "@/api-services/folder-api.service";
+import { ApiError } from "@/lib/api-client";
 
 // REFACTORED
 
@@ -34,7 +35,9 @@ export function AppSidebar({ folderId, shareToken }: {
       } else {
         try {
           const data = await FolderApiService.getFolderWithoutContents(shareToken);
-          setfId(data.id);
+          if (!(data instanceof ApiError)) {
+            setfId(data.id);
+          }
         } catch (error) {
           console.error("Error occured: ", error);
         }
@@ -68,7 +71,7 @@ export function AppSidebar({ folderId, shareToken }: {
         <SidebarGroup>
             <SidebarGroupLabel>File Directory</SidebarGroupLabel>
             <SidebarGroupContent>
-                <FolderTree folderId={fId}/>
+                <FolderTree folderId={fId} readOnly={false}/>
             </SidebarGroupContent>
         </SidebarGroup>
 

@@ -201,7 +201,7 @@ TreeIndicator.displayName = "TreeIndicator"
 
 type FolderProps = {
   expandedItems?: string[]
-  element: string
+  element: React.ReactNode
   isSelectable?: boolean
   isSelect?: boolean
 } & React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>

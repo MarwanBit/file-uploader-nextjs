@@ -3,7 +3,7 @@ import prisma from '@/lib/db-client';
 import ConfigSingleton from '@/lib/config';
 import { PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import s3Client from '@/lib/s3-client';
-import { Folder } from '@/types/types';
+import { Folder, type File as CustomFile } from '@/types/types';
 
 export class FolderService {
     private static config = ConfigSingleton.getInstance().config;
@@ -70,7 +70,7 @@ export class FolderService {
             // External operations outside transaction
             // Create folder info file in S3 (only for new folders)
             if (!root_folder.subfolders || root_folder.subfolders.length === 0) {
-                await this.createFolderInfoFile(folderName, root_folder, folderName);
+                await this.createFolderInfoFile(folderName, root_folder as unknown as Folder, folderName);
             }
 
             // Update user metadata with root folder ID (only if not already set)
@@ -86,7 +86,7 @@ export class FolderService {
                 console.log('User metadata updated successfully');
             }
             
-            return root_folder;
+            return root_folder as unknown as Folder;
         } catch(error) {
             console.error("Error creating root folder: ", error);
             throw error;
@@ -104,9 +104,10 @@ export class FolderService {
                     subfolders: true,
                 }
             });
-            return folder;
+            return folder as unknown as Folder;
         } catch (error) {
             console.error("Error creating root folder: ", error);
+            throw error;
         }
     }
 
@@ -127,7 +128,7 @@ export class FolderService {
                 }
             });
 
-            await this.createFolderInfoFile(path, new_folder, root_folder.folder_name);
+            await this.createFolderInfoFile(path, new_folder as unknown as Folder, root_folder.folder_name);
 
             await prisma.folder.update({
                 where: {
@@ -140,7 +141,7 @@ export class FolderService {
                 },
             });
 
-            return new_folder;
+            return new_folder as unknown as Folder;
 
         } catch(error) {
             console.error("Error creating subfolder: ", error);
@@ -323,7 +324,7 @@ export class FolderService {
 
     static async uploadFileToFolder(
             root_folder: Folder, curr_folder: Folder, 
-            file: File, buffer: Buffer, user: User): Promise<File | null> {
+            file: File, buffer: Buffer, user: User): Promise<CustomFile | null> {
         try {
             await s3Client.send(new PutObjectCommand({
                 Bucket: this.config.APPLICATION_BUCKET_NAME,
@@ -354,7 +355,7 @@ export class FolderService {
                 }
             });
 
-            return new_file;
+            return new_file as unknown as CustomFile;
         } catch (error) {
             console.error("Error creating folder info file: ", error);
             throw new Error(`Failed to delete folder info file: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -367,8 +368,7 @@ export class FolderService {
                 const root_folder = await FolderService.getFolder(user.publicMetadata.root_folder as string);
                 const res = [{
                     id: root_folder?.id, 
-                    folder_name: root_folder?.folder_name,
-                    parent_folder_id: root_folder?.parent_folder_id,
+                    name: root_folder?.folder_name,
                 }];
                 return res;
             } else {
@@ -404,7 +404,7 @@ export class FolderService {
                     shareToken: shareToken,
                 }
             });
-            return folder;
+            return folder as unknown as Folder;
         } catch (error) {
             console.error("Error sharing file: ", error);
             throw new Error(`Failed to share file:  ${error instanceof Error ? error.message : 'Unknown error'}`);

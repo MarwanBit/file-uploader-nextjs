@@ -10,13 +10,14 @@ import {
 } from "@/components/ui/breadcrumb";
 
 import { FolderApiService } from '@/api-services/folder-api.service';
+import { ApiError } from '@/lib/api-client';
 import React from "react";
 
 // REFACTORED
 
 
 export default function DirectoryBreadCrumb({ folderId } : { folderId: string | null }) {
-    const [ancestors, setAncestors] = useState<object[] | null>(null);
+    const [ancestors, setAncestors] = useState<{ id: string, name: string }[] | null>(null);
     const { user } = useUser();
     useEffect(() => {
         const fetchAncestors = async () => {
@@ -24,7 +25,9 @@ export default function DirectoryBreadCrumb({ folderId } : { folderId: string | 
                 if (folderId) {
                     const data = await FolderApiService.getAncestors(folderId);
                     console.log(data);
-                    setAncestors(data.ancestors);
+                    if (!(data instanceof ApiError) && 'ancestors' in data) {
+                        setAncestors(data.ancestors);
+                    }
                 } else {
                     const rootFolderName = user?.firstName + "" + user?.lastName;                
                     setAncestors([{

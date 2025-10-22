@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from "sonner";
 import { useParams } from "next/navigation";
-import { type File } from "@/types/types";
 
 import {
     AlertDialog, AlertDialogAction, 
@@ -30,12 +29,13 @@ export default function NewFileButton({ readOnly }: { readOnly: boolean }) {
     const handleUpload = async () => {
         if (!file) {
             toast.error("Please select a file first!");
+            return;
         }
          try {
             const formData = new FormData();
             formData.append("file", file);
             await FileApiService.uploadFile(folderId, formData)
-            toast.success(`File ${file?.name} created successfully!`);
+            toast.success(`File ${file.name} created successfully!`);
         } catch (error) {
             console.error(error);
             toast.error("Something went wrong while uploading!");

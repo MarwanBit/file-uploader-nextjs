@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { FolderApiService } from "@/api-services/folder-api.service";
-import { FilePen } from "lucide-react";
+import { ApiError } from "@/lib/api-client";
 
 interface FolderNode {
     id: string;
@@ -22,13 +22,15 @@ export function FolderTree({ folderId, readOnly }: {
     folderId: string | null, 
     readOnly : boolean 
 }) {
-    const [rootFolder, setRootFolder] = useState<JSON | null>(null);
+    const [rootFolder, setRootFolder] = useState<FolderNode | null>(null);
     // now we'll use useEffect to fetch the rootFolder
     useEffect(() => {
         const fetchRootFolderRecursive = async () => {
             try {
                 const data = await FolderApiService.getRootFolderContents(folderId);
-                setRootFolder(data);
+                if (!(data instanceof ApiError)) {
+                    setRootFolder(data as FolderNode);
+                }
             } catch (error) {
                 console.error("Error in processing Folder Tree: ", error);
             }
@@ -44,7 +46,7 @@ export function FolderTree({ folderId, readOnly }: {
 }
 
 function RenderFolder({ folder, readOnly }: { 
-    folder: FolderNode,
+    folder: FolderNode | null,
     readOnly: boolean
  }) {
     const params = useParams();

@@ -35,7 +35,7 @@ export class FolderApiService {
         return await this.apiClient.post(endpoint, body);
     }
 
-    static async shareFolder(folderId: string | null, hours: number): Promise<Folder | ApiError> {
+    static async shareFolder(folderId: string | null, hours: number): Promise<{ url: string, expires_at: Date } | ApiError> {
         const endpoint = `/folders/${folderId}/share`;
         const data = {
             hours: hours,
@@ -48,13 +48,13 @@ export class FolderApiService {
             return [];
         }
         const ancestors : { id: string, name: string }[] = [];
-        let current = current_folder;
+        let current: Folder | undefined = current_folder;
         while (current && current.id !== root_folder.id) {
             ancestors.push({
                 id: current.id,
                 name: current.folder_name,
             });
-            current = folderMap[current?.parent_folder_id];
+            current = current?.parent_folder_id ? folderMap[current.parent_folder_id] : undefined;
         }
 
         if (current) {
@@ -68,7 +68,7 @@ export class FolderApiService {
         return ancestors.reverse();
     }
 
-    static async getAncestors(folderId: string): Promise<Folder | ApiError> {
+    static async getAncestors(folderId: string): Promise<{ message: string, ancestors: { id: string, name: string }[] } | ApiError> {
         const endpoint = `/folders/${folderId}/ancestors`;
         return await this.apiClient.get(endpoint);
     }

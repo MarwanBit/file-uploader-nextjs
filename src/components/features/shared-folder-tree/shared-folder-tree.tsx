@@ -6,7 +6,7 @@ import { useFolder } from "@/hooks/use-folder";
 interface FolderNode {
     id: string;
     folder_name: string;
-    files: {id: string; file_name: string }[];
+    files?: {id: string; file_name: string }[];
     subfolders: FolderNode[];
     is_root: boolean;
 }
@@ -24,7 +24,7 @@ export function SharedFolderTree() {
     );
 }
 
-function RenderFolder({ folder }: { folder: FolderNode }) {
+function RenderFolder({ folder }: { folder: FolderNode | null }) {
     const { currentFolder, setCurrentFolder, folderMap } = useFolder();
 
     const isCurrentFolder = (folder && folder.id && (folder.id === currentFolder?.id)) || (!currentFolder?.id && folder?.is_root);

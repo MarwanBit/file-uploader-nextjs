@@ -3,19 +3,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { IconX } from "@tabler/icons-react";
 import SharedDownloadFileButton from "../shared-download-file-button/shared-download-file-button";
+import { type File } from "@/types/types";
 
 interface FileSidebarProps {
-  file?: {
-    id?: string;
-    name: string;
-    size: number;
-    created_at: Date;
-    type: string;
-  } | null;
+  file?: File | null;
   isOpen: boolean;
   onClose: () => void;
   readOnly: boolean;
 }
+
+// Helper function to extract file extension
+const getFileType = (fileName: string): string => {
+  const extension = fileName.split('.').pop();
+  return extension ? extension.toUpperCase() : 'Unknown';
+};
 
 // REFACTORED
 
@@ -69,7 +70,7 @@ export function SharedFileSidebar({ file, isOpen, onClose, readOnly }: FileSideb
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm text-muted-foreground font-bold">Type:</span>
-                    <span className="text-sm">{file.type}</span>
+                    <span className="text-sm">{getFileType(file.file_name)}</span>
                   </div>
                 </div>
               </div>

@@ -5,19 +5,20 @@ import { IconX } from "@tabler/icons-react";
 import DownloadFileButton from "@/components/features/download-file-button/download-file-button";
 import ShareFileButton from "../share-file-button/share-file-button";
 import DeleteFileButton from "../delete-file-button/delete-file-button";
+import { type File } from "@/types/types";
 
 interface FileSidebarProps {
-  file?: {
-    id?: string;
-    name: string;
-    size: number;
-    created_at: Date;
-    type: string;
-  } | null;
+  file?: File | null;
   isOpen: boolean;
   onClose: () => void;
   readOnly: boolean;
 }
+
+// Helper function to extract file extension
+const getFileType = (fileName: string): string => {
+  const extension = fileName.split('.').pop();
+  return extension ? extension.toUpperCase() : 'Unknown';
+};
 
 // REFACTORED
 
@@ -72,7 +73,7 @@ export function FileSidebar({ file, isOpen, onClose, readOnly }: FileSidebarProp
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm text-muted-foreground font-bold">Type:</span>
-                    <span className="text-sm">{file.type}</span>
+                    <span className="text-sm">{getFileType(file.file_name)}</span>
                   </div>
                 </div>
               </div>
