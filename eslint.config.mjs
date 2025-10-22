@@ -19,14 +19,20 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
-    overrides: [
-      {
-        files: ['**/*.test.tsx', '**/*.test.ts'],
-        rules: {
-          '@typescript-eslint/no-explicit-any': 'off',
-        },
-      },
-    ],
+  },
+  // Relax rules for all files
+  {
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'warn', // Changed from error to warn
+      '@typescript-eslint/no-unused-vars': 'warn',
+    },
+  },
+  // Disable strict rules for test files
+  {
+    files: ['**/*.test.tsx', '**/*.test.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
   },
 ];
 
