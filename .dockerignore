@@ -1,0 +1,10 @@
+node_modules
+.next
+.git
+coverage
+cypress/screenshots
+cypress/videos
+.env.local
+prisma/generated
+.DS_Store
+*.log

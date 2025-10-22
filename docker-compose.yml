@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  app:
+    image: nextjs-tutorial-app
+    build:
+      context: .
+      target: dev
+      dockerfile: Dockerfile 
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env # Load all env variables from .env file
+    environment:
+      - CHOKIDAR_USE_POLLING=true
+      - WATCHPACK_POLLING=true

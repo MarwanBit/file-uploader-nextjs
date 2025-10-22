@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Folder {
+  id               String    @id @default(uuid())
+  folder_name      String
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  is_root          Boolean   @default(false)
+  s3_link          String?
+  shared           Boolean   @default(false)
+  expires_at       DateTime?
+  parent_folder_id String?
+  owner_clerk_id   String
+  s3_key           String?
+  shareToken       String?   @unique
+  files            File[]    @relation("FilesToFolder")
+  parent_folder    Folder?   @relation("FolderToParentFolder", fields: [parent_folder_id], references: [id])
+  subfolders       Folder[]  @relation("FolderToParentFolder")
+}
+
+model File {
+  id               String    @id @default(uuid())
+  file_name        String
+  size             Int
+  created_at       DateTime  @default(now())
+  shared           Boolean   @default(false)
+  s3_link          String?
+  expires_at       DateTime?
+  parent_folder_id String?
+  owner_clerk_id   String
+  s3_key           String?
+  parent_folder    Folder?   @relation("FilesToFolder", fields: [parent_folder_id], references: [id])
+}
