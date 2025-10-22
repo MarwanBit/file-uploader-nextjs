@@ -4,9 +4,8 @@ import ConfigSingleton from '@/lib/config';
 import { PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import s3Client from '@/lib/s3-client';
 import { Folder } from '@/types/types';
-import { IFolderService } from '@/interfaces/folder-service.interface';
 
-export class FolderService implements IFolderService {
+export class FolderService {
     private static config = ConfigSingleton.getInstance().config;
 
 

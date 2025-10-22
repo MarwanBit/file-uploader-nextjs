@@ -1,8 +1,7 @@
 import { apiClient, ApiError } from "@/lib/api-client";
 import { Folder } from "@/types/types";
-import { IFolderApiService } from "@/interfaces/folder-api-service.interface";
 
-export class FolderApiService implements IFolderApiService {
+export class FolderApiService {
     private static apiClient = apiClient;
 
     static async getFolderContents(folderId: string | null): Promise<Folder | ApiError> {

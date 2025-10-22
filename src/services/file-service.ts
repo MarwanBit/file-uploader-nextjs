@@ -2,10 +2,9 @@ import prisma from '@/lib/db-client';
 import ConfigSingleton from '@/lib/config';
 import { DeleteObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
 import s3Client from '@/lib/s3-client';
-import { IFileService } from '@/interfaces/file-service.interface';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
-export class FileService implements IFileService {
+export class FileService {
     private static config = ConfigSingleton.getInstance().config;
 
     static async getFileUrl(fileId: string) : Promise<{ url: string }> {
