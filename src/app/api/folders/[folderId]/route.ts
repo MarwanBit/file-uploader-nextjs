@@ -1,5 +1,4 @@
 import { auth, clerkClient } from '@clerk/nextjs/server';
-import prisma from "@/lib/db-client";
 import { FolderService } from "@/services/folder-service";
 
 

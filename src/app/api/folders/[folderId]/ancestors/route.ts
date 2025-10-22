@@ -6,7 +6,7 @@ import { FolderService } from "@/services/folder-service";
 
 export async function GET(
     request: Request,
-    { params }: { params: { folderId: string } }
+    { params }: { params: Promise<{ folderId: string }> }
 ) {
     try {
         const folderId = (await params).folderId;
