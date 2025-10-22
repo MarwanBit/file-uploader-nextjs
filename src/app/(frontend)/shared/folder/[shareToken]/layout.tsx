@@ -16,7 +16,7 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { shareToken: string };
+  params: Promise<{ shareToken: string }>;
 }>) {
   const { shareToken } = await params;
   console.log(shareToken);
