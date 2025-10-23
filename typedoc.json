@@ -1,0 +1,44 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src"],
+  "entryPointStrategy": "expand",
+  "out": "docs/api",
+  "tsconfig": "./tsconfig.typedoc.json",
+  "exclude": [
+    "**/node_modules/**",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.cy.ts",
+    "**/cypress/**",
+    "**/*.config.ts",
+    "**/middleware.ts"
+  ],
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeExternals": true,
+  "includeVersion": true,
+  "readme": "README.md",
+  "name": "File Uploader Next.js - API Documentation",
+  "navigationLinks": {
+    "GitHub": "https://github.com/marwanbit/file-uploader-nextjs"
+  },
+  "plugin": [],
+  "categorizeByGroup": true,
+  "defaultCategory": "Other",
+  "categoryOrder": [
+    "Services",
+    "API Services", 
+    "Utilities",
+    "Components",
+    "Hooks",
+    "Types",
+    "*"
+  ],
+  "sort": ["source-order"],
+  "visibilityFilters": {
+    "protected": false,
+    "private": false,
+    "inherited": true,
+    "external": false
+  }
+}

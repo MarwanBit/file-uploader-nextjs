@@ -14,12 +14,35 @@ import { ApiError } from "@/lib/api-client";
 import { useEffect } from "react";
 import { FolderApiService } from "@/api-services/folder-api.service";
 
+/**
+ * @fileoverview Main folder view page component.
+ * @module components/pages/folder-page
+ */
+
+/**
+ * Props for the FolderPage component.
+ */
 interface FolderPageProps {
+    /** The ID of the folder to display (null for root folder) */
     folderId?: string | null;
 }
 
-// REFACTORED
-
+/**
+ * Main page component for displaying folder contents.
+ * 
+ * Shows breadcrumb navigation, folder/file table, and a file sidebar for details.
+ * Fetches folder contents on mount and handles file selection for the sidebar.
+ * 
+ * @param props - Component props
+ * @param props.folderId - The folder ID to display (defaults to null for root)
+ * @returns Full folder view page with navigation, table, and sidebar
+ * 
+ * @example
+ * ```tsx
+ * <FolderPage folderId="folder-123" />
+ * <FolderPage /> // Shows root folder
+ * ```
+ */
 export default function FolderPage({ folderId = null }: FolderPageProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
