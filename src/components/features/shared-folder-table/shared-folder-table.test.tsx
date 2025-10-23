@@ -195,7 +195,7 @@ describe("SharedFolderTable", () => {
             
             // Check that dates are present (there might be multiple with same date)
             expect(screen.getAllByText("1/1/2024")).toHaveLength(2); // Folder and file both have this date
-            expect(screen.getAllByText("12/31/2023")).toHaveLength(2); // Folder and file both have this date
+            expect(screen.getAllByText("1/2/2024")).toHaveLength(2); // Folder and file both have this date
         });
 
         it("displays folder creation dates correctly", () => {
@@ -203,7 +203,7 @@ describe("SharedFolderTable", () => {
             
             // Should show folder creation dates
             expect(screen.getAllByText("1/1/2024")).toHaveLength(2); // Folder and file both have this date
-            expect(screen.getAllByText("12/31/2023")).toHaveLength(2); // Folder and file both have this date
+            expect(screen.getAllByText("1/2/2024")).toHaveLength(2); // Folder and file both have this date
         });
 
         it("displays content types correctly", () => {

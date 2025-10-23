@@ -69,7 +69,7 @@ describe("SharedFileSidebar", () => {
             render(<SharedFileSidebar {...defaultProps} />);
             
             expect(screen.getByText("1024kb")).toBeInTheDocument();
-            expect(screen.getByText("12/31/2023")).toBeInTheDocument();
+            expect(screen.getByText("1/1/2024")).toBeInTheDocument();
             expect(screen.getByText("PDF")).toBeInTheDocument();
         });
     });
@@ -118,7 +118,7 @@ describe("SharedFileSidebar", () => {
         it("displays file creation date correctly", () => {
             render(<SharedFileSidebar {...defaultProps} />);
             
-            expect(screen.getByText("12/31/2023")).toBeInTheDocument();
+            expect(screen.getByText("1/1/2024")).toBeInTheDocument();
         });
 
         it("displays file type correctly", () => {

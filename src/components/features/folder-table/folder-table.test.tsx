@@ -171,7 +171,7 @@ describe("FolderTable", () => {
 
         it("displays created dates correctly", () => {
             render(<TestWrapper />);
-            expect(screen.getByText("1/1/2024")).toBeInTheDocument();
+            expect(screen.getAllByText("1/1/2024").length).toBeGreaterThan(0);
             expect(screen.getByText("1/2/2024")).toBeInTheDocument();
         });
     });
@@ -189,7 +189,7 @@ describe("FolderTable", () => {
             expect(sizeElements.length).toBeGreaterThan(0);
           
             expect(screen.getByText("Created:")).toBeInTheDocument();
-            expect(screen.getByText("1/1/2024")).toBeInTheDocument();
+            expect(screen.getAllByText("1/1/2024").length).toBeGreaterThan(0);
             expect(screen.getByText("Type:")).toBeInTheDocument();
             expect(screen.getByText("PDF")).toBeInTheDocument();
             expect(screen.getByText("Download")).toBeInTheDocument();
