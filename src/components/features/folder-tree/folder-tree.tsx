@@ -1,3 +1,12 @@
+/**
+ * @fileoverview Tree component for hierarchical folder navigation.
+ * 
+ * This component renders an interactive tree structure showing the complete folder
+ * hierarchy with nested folders and files. Highlights the currently active folder
+ * and provides navigation links.
+ * 
+ * @module components/features/folder-tree
+ */
 'use client'
 
 import { File, Folder, Tree } from "@/components/ui/file-tree";
@@ -7,6 +16,9 @@ import { useParams } from "next/navigation";
 import { FolderApiService } from "@/api-services/folder-api.service";
 import { ApiError } from "@/lib/api-client";
 
+/**
+ * Internal interface representing a folder node in the tree.
+ */
 interface FolderNode {
     id: string;
     folder_name: string;
@@ -15,9 +27,36 @@ interface FolderNode {
     is_root: boolean;
 }
 
-// REFACTORED
-
-
+/**
+ * Tree component for displaying folder hierarchy.
+ * 
+ * Fetches and displays the complete folder tree structure starting from the root.
+ * Supports recursive rendering of nested folders and files. Highlights the currently
+ * active folder based on URL params.
+ * 
+ * @param props - Component props
+ * @param props.folderId - The ID of the current folder (null for root)
+ * @param props.readOnly - If true, disables navigation links
+ * @returns Interactive tree structure of folders and files
+ * 
+ * @example
+ * ```tsx
+ * <FolderTree folderId="folder-123" readOnly={false} />
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * // For root folder
+ * <FolderTree folderId={null} readOnly={false} />
+ * ```
+ * 
+ * @remarks
+ * - Fetches recursive folder structure on mount
+ * - Highlights active folder with blue background
+ * - Files are displayed as non-clickable leaf nodes
+ * - Folders are collapsible/expandable
+ * - Uses FolderApiService.getRootFolderContents
+ */
 export function FolderTree({ folderId, readOnly }: { 
     folderId: string | null, 
     readOnly : boolean 

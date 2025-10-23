@@ -1,3 +1,12 @@
+/**
+ * @fileoverview Button component for sharing files with expiration.
+ * 
+ * This component provides a button that opens a dialog for generating a temporary
+ * shareable link to a file. Users can select an expiration duration (1 hour to 1 week)
+ * and receive a public URL that grants access to the file without authentication.
+ * 
+ * @module components/features/share-file-button
+ */
 import { useState } from "react";
 import { toast } from "sonner";
 import { type File } from "@/types/types";
@@ -23,9 +32,45 @@ import { IconShare } from "@tabler/icons-react";
 
 import { FileApiService } from "@/api-services/file-api.service";
 
-// REFACTORED
-
-
+/**
+ * Button component for generating shareable file links with expiration.
+ * 
+ * Opens a dialog allowing users to select an expiration duration and generate
+ * a temporary public link for sharing the file. The link grants download access
+ * without requiring authentication and expires after the selected duration.
+ * 
+ * @param props - Component props
+ * @param props.file - The file to share (null if no file selected)
+ * @param props.readOnly - If true, disables the share button
+ * @returns Alert dialog button for file sharing
+ * 
+ * @example
+ * ```tsx
+ * <ShareFileButton file={selectedFile} readOnly={false} />
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * // In a file sidebar with share options
+ * <FileSidebar>
+ *   <DownloadFileButton file={file} />
+ *   <ShareFileButton file={file} readOnly={false} />
+ *   <DeleteFileButton file={file} />
+ * </FileSidebar>
+ * ```
+ * 
+ * @remarks
+ * - **Expiration Options**: 1 hour, 4 hours, 1 day, 3 days, 1 week
+ * - Requires a valid file object with an id
+ * - Validates that duration is selected before generating link
+ * - Shows toast error if duration not selected or file missing
+ * - Generated link appears in a read-only input field
+ * - Disabled in read-only mode
+ * - Link expires automatically after selected duration
+ * - Uses FileApiService.shareFile for API calls
+ * 
+ * @see {@link FileApiService.shareFile} for the API implementation
+ */
 export default function ShareFileButton({ file, readOnly } : { 
     file : File | null,
     readOnly: boolean,

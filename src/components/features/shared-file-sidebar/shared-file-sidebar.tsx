@@ -1,3 +1,12 @@
+/**
+ * @fileoverview Sidebar for viewing shared file details.
+ * 
+ * This component is the read-only version of the FileSidebar, designed for
+ * shared folders. It displays file metadata and only allows downloading
+ * (no sharing or deletion).
+ * 
+ * @module components/features/shared-file-sidebar
+ */
 // src/components/features/file-sidebar/file-sidebar.tsx
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -5,21 +14,83 @@ import { IconX } from "@tabler/icons-react";
 import SharedDownloadFileButton from "../shared-download-file-button/shared-download-file-button";
 import { type File } from "@/types/types";
 
+/**
+ * Props for the SharedFileSidebar component.
+ */
 interface FileSidebarProps {
+  /** The file to display (null if no file selected) */
   file?: File | null;
+  /** Whether the sidebar is visible */
   isOpen: boolean;
+  /** Callback to close the sidebar */
   onClose: () => void;
+  /** Read-only flag (always true for shared folders, kept for consistency) */
   readOnly: boolean;
 }
 
-// Helper function to extract file extension
+/**
+ * Helper function to extract file extension.
+ * 
+ * @param fileName - The full filename with extension
+ * @returns Uppercase file extension or "Unknown"
+ */
 const getFileType = (fileName: string): string => {
   const extension = fileName.split('.').pop();
   return extension ? extension.toUpperCase() : 'Unknown';
 };
 
-// REFACTORED
-
+/**
+ * Animated sidebar component for shared file details.
+ * 
+ * Displays an animated slide-out panel from the right showing file metadata
+ * (name, size, creation date, type) and a download button. This is a read-only
+ * version of FileSidebar with no share or delete options.
+ * 
+ * @param props - Component props
+ * @param props.file - The file to display (null if no file selected)
+ * @param props.isOpen - Whether the sidebar is visible
+ * @param props.onClose - Callback to close the sidebar
+ * @param props.readOnly - Read-only flag (always true for shared folders)
+ * @returns Animated sidebar panel with file details and download button
+ * 
+ * @example
+ * ```tsx
+ * const [selectedFile, setSelectedFile] = useState<File | null>(null);
+ * const [sidebarOpen, setSidebarOpen] = useState(false);
+ * 
+ * <SharedFileSidebar
+ *   file={selectedFile}
+ *   isOpen={sidebarOpen}
+ *   onClose={() => setSidebarOpen(false)}
+ *   readOnly={true}
+ * />
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * // In a shared folder page
+ * <SharedFileSidebar
+ *   file={currentFile}
+ *   isOpen={true}
+ *   onClose={handleClose}
+ *   readOnly={true}
+ * />
+ * ```
+ * 
+ * @remarks
+ * - Only renders when `isOpen` is true and `file` is not null
+ * - Shows a backdrop overlay that closes the sidebar when clicked
+ * - Sidebar slides in from the right with spring animation
+ * - Displays file name, size (in KB), creation date, and type
+ * - Only provides download action (no share or delete)
+ * - Close button (X) in the top-right corner
+ * - Fixed width of 320px (w-80)
+ * - Uses AnimatePresence for smooth mount/unmount
+ * - Read-only: designed for shared folder views
+ * 
+ * @see {@link SharedDownloadFileButton} for download functionality
+ * @see {@link FileSidebar} for the full-featured version
+ */
 export function SharedFileSidebar({ file, isOpen, onClose, readOnly }: FileSidebarProps) {
   return (
     <AnimatePresence>

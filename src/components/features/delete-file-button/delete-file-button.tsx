@@ -1,3 +1,11 @@
+/**
+ * @fileoverview Button component for deleting files with confirmation dialog.
+ * 
+ * This component provides a destructive button that triggers a confirmation dialog
+ * before permanently deleting a file from both the database and S3 storage.
+ * 
+ * @module components/features/delete-file-button
+ */
 import { toast } from "sonner";
 import { type File } from "@/types/types";
 import React from "react";
@@ -15,8 +23,36 @@ import { SidebarMenuButton } from "@/components/ui/sidebar";
 import { IconTrash } from "@tabler/icons-react";
 import { FileApiService } from "@/api-services/file-api.service";
 
-// REFACTORED
-
+/**
+ * Button component for deleting files with confirmation.
+ * 
+ * Displays a destructive button that opens a confirmation dialog before deleting
+ * a file. The delete operation is irreversible and removes the file from both
+ * the database and S3 storage. Shows toast notifications for success/failure.
+ * 
+ * @param props - Component props
+ * @param props.file - The file object to delete (null if no file selected)
+ * @param props.readOnly - If true, disables the delete button
+ * @returns Alert dialog button for file deletion
+ * 
+ * @example
+ * ```tsx
+ * <DeleteFileButton file={selectedFile} readOnly={false} />
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * // In read-only mode (shared folders)
+ * <DeleteFileButton file={file} readOnly={true} />
+ * ```
+ * 
+ * @remarks
+ * - Requires a valid file object with an id
+ * - Shows confirmation dialog before deletion
+ * - Disabled in read-only mode
+ * - Displays toast notifications for user feedback
+ * - Uses FileApiService for API calls
+ */
 export default function DeleteFileButton({ file, readOnly } : { 
     file : File | null,
     readOnly : boolean,

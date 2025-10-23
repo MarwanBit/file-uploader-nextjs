@@ -17,6 +17,27 @@ import NewFolderButton from "./features/new-folder-button/new-folder-button";
 import ShareFolderButton from "./features/share-folder-button/share-folder-button";
 import DeleteFolderButton from "./features/delete-folder-button/delete-folder-button";
 
+/**
+ * @fileoverview Sidebar component for shared folder viewing.
+ * @module components/shared-app-sidebar
+ */
+
+/**
+ * Sidebar component for viewing shared folders (read-only or editable).
+ * 
+ * Similar to AppSidebar but designed for shared folder access. Displays
+ * folder operations and a shared folder tree. Operations can be disabled
+ * based on read-only access.
+ * 
+ * @param props - Component props
+ * @param props.readOnly - Whether the shared folder is read-only (disables operations)
+ * @returns Sidebar UI for shared folder navigation
+ * 
+ * @example
+ * ```tsx
+ * <SharedAppSidebar readOnly={true} />
+ * ```
+ */
 export function SharedAppSidebar({ readOnly } : { readOnly: boolean }) {
   return (
     <Sidebar>
