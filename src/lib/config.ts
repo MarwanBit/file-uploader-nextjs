@@ -26,6 +26,20 @@ interface Config {
     APPLICATION_BUCKET_NAME: string;
     /** Port number for the application server */
     PORT: number;
+    /** Database URL for PostgresSQL DB */
+    DATABASE_URL: string;
+    /** Public key for Clerk authentication */
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: string;
+    /** Secret key for Clerk authentication */
+    CLERK_SECRET_KEY: string;
+    /** Return route after sign in using clerk */
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: string;
+    /** Return route after sign up using clerk */
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: string;
+    /** base for the API url */
+    NEXT_PUBLIC_API_URL: string;
+    /** Base URL for Cypress testing and requests */
+    CYPRESS_BASE_URL: string;
 }
 
 /**
@@ -102,6 +116,13 @@ class ConfigSingleton {
             AWS_REGION: process.env.AWS_REGION || "us-east-1",
             APPLICATION_BUCKET_NAME: process.env.APPLICATION_BUCKET_NAME ?? (() => {throw new Error("APPLICATION_BUCKET_NAME UNDEFINED IN CONFIG!")})(),
             PORT: parseInt(process.env.PORT || "3000"),
+            DATABASE_URL: process.env.DATABASE_URL ?? (() => {throw new Error("DATABASE_URL UNDEFINED IN CONFIG!")})(),
+            NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ?? (() => {throw new Error("NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY UNDEFINED IN CONFIG!")})(),
+            CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY ?? (() => {throw new Error("CLERK_SECRET_KEY UNDEFINED IN CONFIG!")})(),
+            NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL ?? (() => {throw new Error("NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL UNDEFINED IN CONFIG!")})(),
+            NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL ?? (() => {throw new Error("NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL UNDEFINED IN CONFIG!")})(),
+            NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL ?? (() => {throw new Error("NEXT_PUBLIC_API_URL UNDEFINED IN CONFIG!")})(),
+            CYPRESS_BASE_URL: process.env.CYPRESS_BASE_URL ?? (() => {throw new Error("CYPRESS_BASE_URL UNDEFINED IN CONFIG")})(),
         };
     }
 
