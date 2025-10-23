@@ -70,7 +70,7 @@ describe("SharedFileSidebar", () => {
             
             expect(screen.getByText("1024kb")).toBeInTheDocument();
             expect(screen.getByText("12/31/2023")).toBeInTheDocument();
-            expect(screen.getByText("application/pdf")).toBeInTheDocument();
+            expect(screen.getByText("PDF")).toBeInTheDocument();
         });
     });
 
@@ -124,7 +124,7 @@ describe("SharedFileSidebar", () => {
         it("displays file type correctly", () => {
             render(<SharedFileSidebar {...defaultProps} />);
             
-            expect(screen.getByText("application/pdf")).toBeInTheDocument();
+            expect(screen.getByText("PDF")).toBeInTheDocument();
         });
 
         it("handles different file types", () => {
@@ -137,7 +137,7 @@ describe("SharedFileSidebar", () => {
             render(<SharedFileSidebar {...defaultProps} file={imageFile} />);
             
             expect(screen.getByText("image.jpg")).toBeInTheDocument();
-            expect(screen.getByText("image/jpeg")).toBeInTheDocument();
+            expect(screen.getByText("JPG")).toBeInTheDocument();
         });
 
         it("handles different file sizes", () => {

@@ -191,7 +191,7 @@ describe("FolderTable", () => {
             expect(screen.getByText("Created:")).toBeInTheDocument();
             expect(screen.getByText("1/1/2024")).toBeInTheDocument();
             expect(screen.getByText("Type:")).toBeInTheDocument();
-            expect(screen.getByText("application/pdf")).toBeInTheDocument();
+            expect(screen.getByText("PDF")).toBeInTheDocument();
             expect(screen.getByText("Download")).toBeInTheDocument();
         });
 
