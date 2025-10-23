@@ -74,7 +74,7 @@ describe("FileSidebar", () => {
             expect(screen.getByText("Created:")).toBeInTheDocument();
             expect(screen.getByText("1/1/2024")).toBeInTheDocument();
             expect(screen.getByText("Type:")).toBeInTheDocument();
-            expect(screen.getByText("application/pdf")).toBeInTheDocument();
+            expect(screen.getByText("PDF")).toBeInTheDocument();
             expect(screen.getByText("Download")).toBeInTheDocument();
         });
     });
@@ -88,7 +88,7 @@ describe("FileSidebar", () => {
             expect(screen.queryByText("Created:")).not.toBeInTheDocument();
             expect(screen.queryByText("1/1/2024")).not.toBeInTheDocument();
             expect(screen.queryByText("Type:")).not.toBeInTheDocument();
-            expect(screen.queryByText("application/pdf")).not.toBeInTheDocument();
+            expect(screen.queryByText("PDF")).not.toBeInTheDocument();
             expect(screen.queryByText("Download")).not.toBeInTheDocument();
         });
     });

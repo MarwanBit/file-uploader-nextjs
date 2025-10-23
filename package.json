@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest --coverage --run"
   },
   "dependencies": {
     "@aws-sdk/s3-request-presigner": "^3.901.0",
