@@ -25,7 +25,7 @@ describe("SharedFileSidebar", () => {
         id: "file-123",
         file_name: "test-file.pdf",
         size: 1024,
-        created_at: new Date("2024-01-01"),
+        created_at: new Date("2024-01-01T12:00:00Z"),
         type: "application/pdf"
     };
 
