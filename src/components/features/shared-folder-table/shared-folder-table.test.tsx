@@ -11,8 +11,8 @@ vi.mock("@/hooks/use-folder", () => ({
             "folder-1": {
                 id: "folder-1",
                 folder_name: "Documents",
-                created_at: new Date("2024-01-01"),
-                updated_at: new Date("2024-01-01"),
+                created_at: new Date("2024-01-01T12:00:00Z"),
+                updated_at: new Date("2024-01-01T12:00:00Z"),
                 is_root: false,
                 s3_link: "https://s3.example.com/folder-1",
                 shared: false,
@@ -24,8 +24,8 @@ vi.mock("@/hooks/use-folder", () => ({
             "folder-2": {
                 id: "folder-2",
                 folder_name: "Images",
-                created_at: new Date("2024-01-02"),
-                updated_at: new Date("2024-01-02"),
+                created_at: new Date("2024-01-02T12:00:00Z"),
+                updated_at: new Date("2024-01-02T12:00:00Z"),
                 is_root: false,
                 s3_link: "https://s3.example.com/folder-2",
                 shared: false,
@@ -45,14 +45,14 @@ describe("SharedFolderTable", () => {
             id: "file-1",
             file_name: "document.pdf",
             size: 1024,
-            created_at: new Date("2024-01-01"),
+            created_at: new Date("2024-01-01T12:00:00Z"),
             type: "application/pdf"
         },
         {
             id: "file-2",
             file_name: "image.jpg",
             size: 2048,
-            created_at: new Date("2024-01-02"),
+            created_at: new Date("2024-01-02T12:00:00Z"),
             type: "image/jpeg"
         }
     ];
@@ -61,8 +61,8 @@ describe("SharedFolderTable", () => {
         {
             id: "folder-1",
             folder_name: "Documents",
-            created_at: new Date("2024-01-01"),
-            updated_at: new Date("2024-01-01"),
+            created_at: new Date("2024-01-01T12:00:00Z"),
+            updated_at: new Date("2024-01-01T12:00:00Z"),
             is_root: false,
             s3_link: "https://s3.example.com/folder-1",
             shared: false,
@@ -74,8 +74,8 @@ describe("SharedFolderTable", () => {
         {
             id: "folder-2",
             folder_name: "Images",
-            created_at: new Date("2024-01-02"),
-            updated_at: new Date("2024-01-02"),
+            created_at: new Date("2024-01-02T12:00:00Z"),
+            updated_at: new Date("2024-01-02T12:00:00Z"),
             is_root: false,
             s3_link: "https://s3.example.com/folder-2",
             shared: false,
@@ -252,7 +252,7 @@ describe("SharedFolderTable", () => {
                 {
                     file_name: "no-id-file.pdf",
                     size: 512,
-                    created_at: new Date("2024-01-03"),
+                    created_at: new Date("2024-01-03T12:00:00Z"),
                     type: "application/pdf"
                 }
             ];
