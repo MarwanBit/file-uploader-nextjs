@@ -2,7 +2,6 @@ import '@testing-library/jest-dom';
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import DirectoryBreadcrumb from "./directory-breadcrumb";
-import { TestWrapper } from "@/test-utils/test-wrapper";
 import React from "react";
 
 
@@ -12,15 +11,19 @@ vi.mock("@/hooks/use-mobile", () => ({
 
 // Mock Clerk's useUser hook
 vi.mock("@clerk/nextjs", () => ({
-    useUser: () => ({
+    useUser: vi.fn(() => ({
         user: {
-            firstName: "Amine",
-            lastName: "Bit",
+            id: 'test-user-id',
+            firstName: 'Test',
+            lastName: 'User',
+            emailAddresses: [{ emailAddress: 'test@example.com' }],
             publicMetadata: {
-                root_folder: "test-root-folder"
+                root_folder: 'test-root-folder-id'
             }
-        }
-    })
+        },
+        isLoaded: true,
+        isSignedIn: true
+    }))
 }));
 
 // Mock useAuthFolder hook
@@ -74,9 +77,7 @@ const mockUseUserReturn = {
     isLoaded: true
 };
 
-vi.mock("@clerk/nextjs", () => ({
-    useUser: vi.fn(() => mockUseUserReturn),
-}));
+// Clerk mock is already defined above
 
 vi.mock("sonner", () => ({
     toast: {
@@ -112,11 +113,7 @@ describe("DirectoryBreadcrumb", () => {
     });
 
     const renderWithProviders = (component: React.ReactElement) => {
-        return render(
-            <TestWrapper>
-                {component}
-            </TestWrapper>
-        );
+        return render(component);
     };
 
     describe("Testing Rendering", () => {

@@ -7,7 +7,7 @@ export default defineConfig({
     test: {
         environment: 'jsdom',
         globals: true,
-        setupFiles: ['./src/__mocks__/sonner.ts'],
+        setupFiles: ['./src/__mocks__/sonner.ts', './src/test-setup.ts'],
         mockReset: true,
         clearMocks: true,
         environmentOptions: {
