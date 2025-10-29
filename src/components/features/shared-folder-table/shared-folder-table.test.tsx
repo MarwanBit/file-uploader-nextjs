@@ -131,8 +131,8 @@ describe("SharedFolderTable", () => {
         it("renders file sizes correctly", () => {
             render(<SharedFolderTable {...defaultProps} />);
             
-            expect(screen.getByText("1024kb")).toBeInTheDocument();
-            expect(screen.getByText("2048kb")).toBeInTheDocument();
+            expect(screen.getByText("1024 bytes")).toBeInTheDocument();
+            expect(screen.getByText("2048 bytes")).toBeInTheDocument();
         });
 
         it("renders folder sizes as dashes", () => {
