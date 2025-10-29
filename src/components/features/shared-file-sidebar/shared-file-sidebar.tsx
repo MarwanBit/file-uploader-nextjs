@@ -138,7 +138,7 @@ export function SharedFileSidebar({ file, isOpen, onClose, readOnly, shareToken 
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm text-muted-foreground font-bold">Size:</span>
-                    <span className="text-sm">{file.size}kb</span>
+                    <span className="text-sm">{file.size} bytes</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-sm text-muted-foreground font-bold">Created:</span>

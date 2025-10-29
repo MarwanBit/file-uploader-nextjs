@@ -8,8 +8,12 @@ import { Toaster } from "sonner";
 
 
 export const metadata: Metadata = {
-  title: "File Uploader",
-  description: "File Uploader, share and upload files and folders with friends!",
+  title: "My Files - File Uploader",
+  description: "Manage your files and folders with our secure cloud storage system. Upload, organize, and share files with advanced folder management features.",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default async function RootLayout({

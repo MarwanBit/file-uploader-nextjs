@@ -68,7 +68,7 @@ describe("SharedFileSidebar", () => {
         it("renders file details correctly", () => {
             render(<SharedFileSidebar {...defaultProps} />);
             
-            expect(screen.getByText("1024kb")).toBeInTheDocument();
+            expect(screen.getByText("1024 bytes")).toBeInTheDocument();
             expect(screen.getByText("1/1/2024")).toBeInTheDocument();
             expect(screen.getByText("PDF")).toBeInTheDocument();
         });
@@ -112,7 +112,7 @@ describe("SharedFileSidebar", () => {
         it("displays file size correctly", () => {
             render(<SharedFileSidebar {...defaultProps} />);
             
-            expect(screen.getByText("1024kb")).toBeInTheDocument();
+            expect(screen.getByText("1024 bytes")).toBeInTheDocument();
         });
 
         it("displays file creation date correctly", () => {
@@ -148,7 +148,7 @@ describe("SharedFileSidebar", () => {
             
             render(<SharedFileSidebar {...defaultProps} file={largeFile} />);
             
-            expect(screen.getByText("2048kb")).toBeInTheDocument();
+            expect(screen.getByText("2048 bytes")).toBeInTheDocument();
         });
     });
 
@@ -193,7 +193,7 @@ describe("SharedFileSidebar", () => {
             
             render(<SharedFileSidebar {...defaultProps} file={largeFile} />);
             
-            expect(screen.getByText("1048576kb")).toBeInTheDocument();
+            expect(screen.getByText("1048576 bytes")).toBeInTheDocument();
         });
 
         it("handles files with special characters in name", () => {

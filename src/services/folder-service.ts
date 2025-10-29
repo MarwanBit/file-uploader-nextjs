@@ -107,7 +107,7 @@ export class FolderService {
             } catch (transactionError: unknown) {
                // Handle race condition OUTSIDE the transaction
                 if (transactionError && typeof transactionError === 'object' && 'code' in transactionError && transactionError.code === 'P2002') {
-                    console.log('Race condition: root folder created by another request, fetching...');
+                    // Race condition: root folder created by another request, fetching...
                     root_folder = await prisma.folder.findFirst({
                         where: {
                             owner_clerk_id: userId,
@@ -135,14 +135,14 @@ export class FolderService {
             // Update user metadata with root folder ID (only if not already set)
             if (!user.publicMetadata?.root_folder) {
                 const client = await clerkClient();
-                console.log('Updating user metadata with root folder ID:', root_folder.id);
+                // Updating user metadata with root folder ID
                 await client.users.updateUser(userId, {
                     publicMetadata: {
                         ...user.publicMetadata,
                         root_folder: root_folder.id,
                     }
                 });
-                console.log('User metadata updated successfully');
+                // User metadata updated successfully
             }
             
             return root_folder as unknown as Folder;

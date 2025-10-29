@@ -83,7 +83,7 @@ export class FileService {
                 },
             });
 
-            console.log(file);
+            // File processed successfully
 
             if (!file) {
                 throw new Error("File not found");

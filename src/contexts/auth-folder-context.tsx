@@ -6,6 +6,7 @@ import { FolderApiService } from "@/api-services/folder-api.service";
 import { ApiError } from "@/lib/api-client";
 import { File } from "@/types/types";
 import { useParams } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 
 /**
  * @fileoverview React context for managing folder state in the authenticated view.
@@ -112,6 +113,7 @@ export const AuthFolderProvider = ({ children }: {
 }) => {
     const params = useParams();
     const folderId = params.folderId ? (params.folderId as string[])[0] : null;
+    const { isSignedIn } = useAuth();
 
     // authenticated view
     const [files, setFiles] = useState<File[] | null>(null);
@@ -128,6 +130,8 @@ export const AuthFolderProvider = ({ children }: {
 
     // Fetch user's root folder ID on mount (once)
     useEffect(() => {
+        if (!isSignedIn) return;
+        
         const fetchRootFolderId = async () => {
             try {
                 const response = await FolderApiService.getRootFolderId();
@@ -141,10 +145,12 @@ export const AuthFolderProvider = ({ children }: {
             }
         };
         fetchRootFolderId();
-    }, []);
+    }, [isSignedIn]);
 
     // on changing of the folderId we refetch the folder contents
     const fetchFolderContents = useCallback(async () => {
+        if (!isSignedIn) return;
+        
         // Wait for rootFolderId to be set if we don't have a currentFolderId yet
         if (!currentFolderId && !rootFolderId) {
             return;
@@ -162,14 +168,13 @@ export const AuthFolderProvider = ({ children }: {
             if (!(data instanceof ApiError)) {
                 setSubFolders(data.subfolders);
                 setFiles(data.files as File[]);
-                console.log(data);
             }
         } catch (err) {
             console.error("error messsage", err);
         } finally {
             setIsLoading(false);
         }
-    }, [currentFolderId, rootFolderId]);
+    }, [currentFolderId, rootFolderId, isSignedIn]);
 
     // refetch on the change of the fetchFolderContents reference
     useEffect(() => {

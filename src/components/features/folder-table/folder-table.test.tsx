@@ -173,8 +173,8 @@ describe("FolderTable", () => {
 
         it("displays file sizes correctly", () => {
             render(<TestWrapperComponent />);
-            expect(screen.getByText("1024kb")).toBeInTheDocument();
-            expect(screen.getByText("2048kb")).toBeInTheDocument();
+            expect(screen.getByText("1024 bytes")).toBeInTheDocument();
+            expect(screen.getByText("2048 bytes")).toBeInTheDocument();
         });
 
         it("displays folder sizes as ---", () => {
@@ -204,7 +204,7 @@ describe("FolderTable", () => {
             });
         
             // Use getAllByText and check that we have at least one
-            const sizeElements = screen.getAllByText("1024kb");
+            const sizeElements = screen.getAllByText("1024 bytes");
             expect(sizeElements.length).toBeGreaterThan(0);
           
             expect(screen.getByText("Created:")).toBeInTheDocument();

@@ -1,4 +1,14 @@
 import { SignIn } from "@clerk/nextjs";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sign In - File Uploader",
+  description: "Sign in to your File Uploader account to access your secure cloud file storage and management system.",
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function LogIn() {
   return (

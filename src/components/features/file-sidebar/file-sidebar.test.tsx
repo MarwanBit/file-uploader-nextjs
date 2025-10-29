@@ -90,7 +90,7 @@ describe("FileSidebar", () => {
             render(<FileSidebarWrapper initialOpen={true} />);    
             expect(screen.getByText("test-file.pdf")).toBeInTheDocument();
             expect(screen.getByText("Size:")).toBeInTheDocument();
-            expect(screen.getByText("1024kb")).toBeInTheDocument();
+            expect(screen.getByText("1024 bytes")).toBeInTheDocument();
             expect(screen.getByText("Created:")).toBeInTheDocument();
             expect(screen.getByText("1/1/2024")).toBeInTheDocument();
             expect(screen.getByText("Type:")).toBeInTheDocument();
@@ -104,7 +104,7 @@ describe("FileSidebar", () => {
             render(<FileSidebarWrapper initialOpen={false} />);
             expect(screen.queryByText("test-file.pdf")).not.toBeInTheDocument();
             expect(screen.queryByText("Size:")).not.toBeInTheDocument();
-            expect(screen.queryByText("1024kb")).not.toBeInTheDocument();
+            expect(screen.queryByText("1024 bytes")).not.toBeInTheDocument();
             expect(screen.queryByText("Created:")).not.toBeInTheDocument();
             expect(screen.queryByText("1/1/2024")).not.toBeInTheDocument();
             expect(screen.queryByText("Type:")).not.toBeInTheDocument();

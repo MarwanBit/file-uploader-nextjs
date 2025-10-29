@@ -208,7 +208,7 @@ export async function POST(request: Request) {
         const client = await clerkClient();
         let user = await client.users.getUser(userId);
         
-        console.log('User metadata:', user.publicMetadata);
+        // User metadata retrieved successfully
 
         const body = await request.json();
         const { folder_name } = body;

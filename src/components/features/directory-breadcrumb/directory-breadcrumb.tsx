@@ -56,7 +56,6 @@ export default function DirectoryBreadCrumb() {
             try {
                 if (currentFolderId) {
                     const data = await FolderApiService.getAncestors(currentFolderId);
-                    console.log(data);
                     if (!(data instanceof ApiError) && 'ancestors' in data) {
                         setAncestors(data.ancestors);
                     }

@@ -112,7 +112,7 @@ export default function FolderTable({ files, selectedFile, handleRowClick, folde
                         onClick={() => handleRowClick(file)}>
                         <TableCell>File</TableCell>
                         <TableCell className="font-medium">{file.file_name}</TableCell>
-                        <TableCell>{file.size}kb</TableCell>
+                        <TableCell>{file.size} bytes</TableCell>
                         <TableCell className="text-right">{(new Date(file.created_at)).toLocaleDateString()}</TableCell>
                     </TableRow>
                 ))}

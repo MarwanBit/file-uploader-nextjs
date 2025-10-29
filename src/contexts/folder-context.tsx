@@ -164,7 +164,6 @@ export const FolderProvider = ({ children, initialShareToken } : {
                     // now we need to construct the folder
                     const newFolderMap = await FolderApiService.constructFolderMap(data);
                     setFolderMap(newFolderMap);
-                    console.log(newFolderMap);
                     setCurrentFolder(data);
                 }
             } catch (error) {
