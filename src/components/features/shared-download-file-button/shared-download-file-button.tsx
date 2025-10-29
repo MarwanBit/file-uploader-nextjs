@@ -100,7 +100,7 @@ export default function SharedDownloadFileButton({
             <Button 
                 variant="outline" 
                 className="w-full justify-start hover:cursor-pointer"
-                disabled={isDownloading || readOnly}
+                disabled={isDownloading || !file?.id || !shareToken}
                 onClick={downloadFileController}
                 data-testid="download-button">
                 <IconDownload className="mr-2 h-4 w-4" />
