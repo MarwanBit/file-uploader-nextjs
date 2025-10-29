@@ -1,0 +1,20 @@
+{
+    "extends": "./tsconfig.json",
+    "exclude": [
+      "node_modules",
+      "cypress",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.cy.ts",
+      "**/*.spec.ts",
+      "**/*.spec.tsx",
+      "**/cypress/**",
+      "**/__tests__/**",
+      ".next",
+      "out"
+    ],
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ]
+  }

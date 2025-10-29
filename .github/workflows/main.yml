@@ -1,0 +1,48 @@
+name: Cypress Tests
+
+on: push
+
+jobs: 
+  cypress-run: 
+    runs-on: ubuntu-24.04
+    env:
+      # AWS/S3
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      APPLICATION_BUCKET_NAME: ${{ secrets.APPLICATION_BUCKET_NAME }}
+      
+      # PostgresSQL/ Prisma DB
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      # Clerk
+      CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+      NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: ${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL }}
+      NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: ${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL }}
+
+      # Other
+      CYPRESS_BASE_URL: ${{ secrets.CYPRESS_BASE_URL }}
+      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+      PORT: ${{ secrets.PORT }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+  
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests with coverage
+        run: npm run test
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm run start
